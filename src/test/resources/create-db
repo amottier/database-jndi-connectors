@@ -1,0 +1,132 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.1.14
+-- Dumped by pg_dump version 9.1.14
+-- Started on 2014-12-01 17:39:45 CET
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 1865 (class 1262 OID 18248)
+-- Name: testdb; Type: DATABASE; Schema: -; Owner: test
+--
+
+CREATE DATABASE testdb WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'fr_FR.UTF-8' LC_CTYPE = 'fr_FR.UTF-8';
+
+
+ALTER DATABASE testdb OWNER TO test;
+
+\connect testdb
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 163 (class 3079 OID 11650)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 1868 (class 0 OID 0)
+-- Dependencies: 163
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 162 (class 1259 OID 20252)
+-- Dependencies: 5
+-- Name: person; Type: TABLE; Schema: public; Owner: test; Tablespace: 
+--
+
+CREATE TABLE person (
+    idperson integer NOT NULL,
+    firstname character varying(255),
+    lastname character varying(255)
+);
+
+
+ALTER TABLE public.person OWNER TO test;
+
+--
+-- TOC entry 161 (class 1259 OID 20250)
+-- Dependencies: 162 5
+-- Name: person_idperson_seq; Type: SEQUENCE; Schema: public; Owner: test
+--
+
+CREATE SEQUENCE person_idperson_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.person_idperson_seq OWNER TO test;
+
+--
+-- TOC entry 1869 (class 0 OID 0)
+-- Dependencies: 161
+-- Name: person_idperson_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: test
+--
+
+ALTER SEQUENCE person_idperson_seq OWNED BY person.idperson;
+
+
+--
+-- TOC entry 1757 (class 2604 OID 20255)
+-- Dependencies: 162 161 162
+-- Name: idperson; Type: DEFAULT; Schema: public; Owner: test
+--
+
+ALTER TABLE ONLY person ALTER COLUMN idperson SET DEFAULT nextval('person_idperson_seq'::regclass);
+
+
+--
+-- TOC entry 1759 (class 2606 OID 20260)
+-- Dependencies: 162 162 1862
+-- Name: pk_idperson; Type: CONSTRAINT; Schema: public; Owner: test; Tablespace: 
+--
+
+ALTER TABLE ONLY person
+    ADD CONSTRAINT pk_idperson PRIMARY KEY (idperson);
+
+
+--
+-- TOC entry 1867 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2014-12-01 17:39:45 CET
+
+--
+-- PostgreSQL database dump complete
+--
+
